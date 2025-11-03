@@ -425,14 +425,6 @@ const RibbonItemRenderer: React.FC<{ item: RibbonItem }> = ({ item }) => {
   const { actions } = useRibbon();
   const disabled = item.enabled === false;
   const handleClick = () => {
-    console.log(
-      'RibbonItem click:',
-      item.label,
-      'key:',
-      item.onClick,
-      'func:',
-      typeof actions[item.onClick],
-    );
     if (item.onClick && actions[item.onClick]) {
       actions[item.onClick]();
     }

@@ -82,28 +82,23 @@ export default defineConfig(({ mode }) => ({
   build: {
     outDir: '../../dist/renderer',
     emptyOutDir: true,
-    // Enable better code splitting to reduce bundle size
+    // Let Vite handle automatic code splitting to avoid circular dependency issues
+    // Manual chunks removed to prevent "Cannot access 'gc' before initialization" errors
     rollupOptions: {
       output: {
-        manualChunks: (id) => {
-          // Split vendor chunks for better caching
-          if (id.includes('node_modules')) {
-            if (id.includes('@fluentui')) {
-              return 'fluentui';
-            }
-            if (id.includes('react') || id.includes('react-dom')) {
-              return 'react-vendor';
-            }
-            return 'vendor';
-          }
-        },
+        // Use automatic code splitting - Vite will handle chunking intelligently
         chunkFileNames: 'assets/[name]-[hash].js',
         entryFileNames: 'assets/[name]-[hash].js',
         assetFileNames: 'assets/[name]-[hash].[ext]',
       },
     },
-    // Increase chunk size warning limit
-    chunkSizeWarningLimit: 1000, // 1 MB (larger chunks are acceptable)
+    // Increase chunk size warning limit to accommodate large bundles
+    chunkSizeWarningLimit: 2000, // 2 MB (larger chunks are acceptable for this app)
+    // Ensure proper module order and transformation
+    commonjsOptions: {
+      include: [/node_modules/],
+      transformMixedEsModules: true,
+    },
   },
   optimizeDeps: {
     include: ['scheduler'],

@@ -64,13 +64,15 @@ export function createIndexedDBStores(db: IDBDatabase): void {
         { name: 'stock_adjustments', keyPath: 'id', indexes: [{ name: 'adjustment_number', keyPath: 'adjustment_number', unique: true }, { name: 'branch_id', keyPath: 'branch_id' }] },
         { name: 'stock_adjustment_items', keyPath: 'id', indexes: [{ name: 'adjustment_id', keyPath: 'adjustment_id' }] },
 
-        // Migration tracking
+        // Migration tracking (id is a string like '001', not auto-increment)
         { name: '_migrations', keyPath: 'id' },
     ];
 
     for (const store of stores) {
         if (!db.objectStoreNames.contains(store.name)) {
-            const objectStore = db.createObjectStore(store.name, { keyPath: store.keyPath, autoIncrement: store.keyPath === 'id' });
+            // Don't auto-increment for _migrations (id is string), but do for others with id keyPath
+            const shouldAutoIncrement = store.keyPath === 'id' && store.name !== '_migrations';
+            const objectStore = db.createObjectStore(store.name, { keyPath: store.keyPath, autoIncrement: shouldAutoIncrement });
             if (store.indexes) {
                 for (const index of store.indexes) {
                     objectStore.createIndex(index.name, index.keyPath, { unique: index.unique || false });
