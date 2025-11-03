@@ -359,6 +359,22 @@ npm run dev
 
 Select option **2** (Web app) to verify everything works.
 
+### 4. Authentication
+
+The application uses a simple authentication system with session persistence.
+
+**Default Credentials:**
+
+- **Username:** `admin`
+- **Password:** `1234`
+
+**Session Details:**
+
+- Sessions persist for **6 hours** after login
+- Session is automatically restored on page reload/refresh
+- You remain logged in even after closing and reopening the application (within the 6-hour window)
+- Expired sessions are automatically cleared
+
 ---
 
 ## 🔧 Development
