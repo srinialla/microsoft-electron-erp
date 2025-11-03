@@ -1,0 +1,24 @@
+.form-input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #d1d1d1;
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: inherit;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #0078d4;
+    box-shadow: 0 0 0 1px #0078d4;
+}
+
+.form-input:disabled {
+    background-color: #f3f3f3;
+    cursor: not-allowed;
+}
+
+.form-input::placeholder {
+    color: #a19f9d;
+}

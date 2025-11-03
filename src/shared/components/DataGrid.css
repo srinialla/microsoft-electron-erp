@@ -1,0 +1,75 @@
+.data-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.data-grid-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+}
+
+.data-grid-search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border: 1px solid #d1d1d1;
+    border-radius: 4px;
+    background: white;
+    flex: 1;
+    max-width: 400px;
+}
+
+.data-grid-search-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 14px;
+}
+
+.data-grid-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.data-grid-table-wrapper {
+    overflow-x: auto;
+    border: 1px solid #e1e1e1;
+    border-radius: 4px;
+}
+
+.table-header-content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sortable {
+    cursor: pointer;
+    user-select: none;
+}
+
+.sortable:hover {
+    background-color: #f5f5f5;
+}
+
+.sort-icon {
+    display: flex;
+    align-items: center;
+}
+
+.clickable-row {
+    cursor: pointer;
+}
+
+.clickable-row:hover {
+    background-color: #f5f5f5;
+}
+
+.data-grid-actions-cell {
+    display: flex;
+    gap: 4px;
+}

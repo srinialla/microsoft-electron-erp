@@ -1,0 +1,34 @@
+.searchable-dropdown-input {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-bottom: 1px solid #e1e1e1;
+}
+
+.searchable-dropdown-search {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 14px;
+}
+
+.searchable-dropdown-clear {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    color: #616161;
+}
+
+.searchable-dropdown-clear:hover {
+    color: #1f1f1f;
+}
+
+.searchable-dropdown-create {
+    color: #0078d4;
+    font-weight: 500;
+    padding: 4px 0;
+}

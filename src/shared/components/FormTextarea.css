@@ -1,0 +1,32 @@
+.form-textarea {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #d1d1d1;
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: inherit;
+    resize: vertical;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-textarea:focus {
+    outline: none;
+    border-color: #0078d4;
+    box-shadow: 0 0 0 1px #0078d4;
+}
+
+.form-textarea:disabled {
+    background-color: #f3f3f3;
+    cursor: not-allowed;
+}
+
+.form-textarea::placeholder {
+    color: #a0a0a0;
+}
+
+.form-textarea-counter {
+    margin-top: 4px;
+    font-size: 12px;
+    color: #616161;
+    text-align: right;
+}

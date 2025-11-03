@@ -1,0 +1,35 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.main.json" },
+    { "path": "./tsconfig.preload.json" },
+    { "path": "./tsconfig.renderer.json" }
+  ],
+  "compilerOptions": {
+    "composite": true,
+    "strict": true,
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "resolveJsonModule": true,
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@main/*": ["src/main/*"],
+      "@preload/*": ["src/preload/*"],
+      "@renderer/*": ["src/renderer/*"],
+      "@shared/*": ["src/shared/*"],
+      "@/*": ["src/renderer/*"],
+      "@components/*": ["src/renderer/components/*"],
+      "@ui/*": ["src/renderer/components/ui/*"],
+      "@hooks/*": ["src/renderer/hooks/*"],
+      "@services/*": ["src/renderer/services/*"],
+      "@utils/*": ["src/renderer/utils/*"],
+      "@types/*": ["src/renderer/types/*"],
+      "@config/*": ["src/renderer/config/*"],
+      "@store/*": ["src/renderer/store/*"]
+    },
+    "types": ["node", "vite/client"],
+    "skipLibCheck": true
+  }
+}

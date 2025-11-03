@@ -1,0 +1,590 @@
+/* Office-style Ribbon */
+:root {
+  --ms-bg-primary: #f3f3f3;
+  --ms-bg-white: #ffffff;
+  --ms-border: #d0d0d0;
+  --ms-accent: #0078d7;
+  --ms-hover: #e5e5e5;
+  --ms-active: #e0e0e0;
+  --ms-shadow-8: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+.ribbon-container {
+  background: var(--ms-bg-primary);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid var(--ms-border);
+  font-family: 'Segoe UI', 'Roboto', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  height: var(--ribbon-tabbar-height);
+  display: flex;
+  flex-direction: column;
+  overflow: visible;
+  position: relative;
+  z-index: 100;
+}
+
+.ribbon-container.open {
+  height: calc(var(--ribbon-tabbar-height) + var(--ribbon-content-height));
+}
+
+.ribbon-container.collapsed {
+  height: var(--ribbon-tabbar-height);
+}
+
+/* Web: increase tabs row height for comfort */
+.platform-web .ribbon-header {
+  height: 48px;
+}
+
+.platform-web .ribbon-tab {
+  height: 48px;
+}
+
+.platform-web .ribbon-container {
+  height: 48px;
+}
+
+.platform-web .ribbon-container.open {
+  height: calc(48px + var(--ribbon-content-height));
+}
+
+.platform-web .ribbon-container.collapsed {
+  height: 48px;
+}
+
+/* cleanup duplicate selector removed */
+
+.ribbon-header {
+  display: flex;
+  align-items: center;
+  height: var(--ribbon-tabbar-height);
+  padding: 0 16px;
+  background: var(--ms-bg-primary);
+  position: relative;
+  z-index: 200;
+}
+
+.ribbon-display {
+  margin-left: auto;
+  position: relative;
+}
+
+.ribbon-display-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 6px 8px;
+  border-radius: 4px;
+  min-width: 36px;
+  min-height: 36px;
+  box-sizing: border-box;
+}
+
+.ribbon-display-button:hover {
+  background: var(--ms-hover);
+}
+
+.ribbon-display-button svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+/* Web-only actions beside display dropdown */
+.ribbon-web-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 8px;
+}
+
+.ribbon-web-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  min-height: 36px;
+  border: none;
+  background: transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 6px;
+  box-sizing: border-box;
+}
+
+.ribbon-web-btn:hover {
+  background: var(--ms-hover);
+}
+
+.ribbon-web-btn svg {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.ribbon-search-input {
+  height: 28px;
+  border: 1px solid var(--ms-border);
+  border-radius: 4px;
+  padding: 0 8px;
+  outline: none;
+}
+
+.ribbon-web-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 4px;
+  min-width: 200px;
+  background: var(--ms-bg-white);
+  border: 1px solid var(--ms-border);
+  border-radius: 4px;
+  box-shadow: var(--ms-shadow-8);
+  z-index: 1500;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-header {
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  border-bottom: 1px solid var(--ms-border);
+}
+
+.dropdown-empty {
+  padding: 12px;
+  font-size: 12px;
+  color: #666;
+}
+
+.dropdown-item {
+  padding: 8px 12px;
+  background: transparent;
+  border: none;
+  text-align: left;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  background: var(--ms-bg-primary);
+}
+
+.ribbon-display-menu {
+  display: flex;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background: var(--ms-bg-white);
+  border: 1px solid var(--ms-border);
+  box-shadow: var(--ms-shadow-8);
+  border-radius: 4px;
+  margin-top: 4px;
+  z-index: 10000;
+  flex-direction: column;
+  min-width: 220px;
+}
+
+.ribbon-display-menu button {
+  background: transparent;
+  border: none;
+  text-align: left;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.ribbon-display-menu button:hover {
+  background: var(--ms-bg-primary);
+}
+
+.ribbon-toggle {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  margin-right: 8px;
+  color: #666;
+  transition: background-color 200ms ease;
+}
+
+.ribbon-toggle:hover {
+  background: #E5E5E5;
+}
+
+.ribbon-tabs {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1 1 auto;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.ribbon-tab {
+  padding: 0 8px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #323130;
+  transition: background-color 160ms ease;
+  position: relative;
+  height: var(--ribbon-tabbar-height);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-sizing: border-box;
+}
+
+.ribbon-tab:hover {
+  background: var(--ms-hover);
+}
+
+.ribbon-tab.active {
+  background: #e5e5e5;
+}
+
+.ribbon-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--ms-accent);
+}
+
+.ribbon-tab svg {
+  width: 16px;
+  height: 16px;
+  color: currentColor;
+}
+
+.tab-label {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.ribbon-body {
+  background: var(--ms-bg-white);
+  min-height: var(--ribbon-content-height);
+  transition: height 200ms ease, opacity 200ms ease;
+  overflow: hidden;
+  flex: 0 0 var(--ribbon-content-height);
+  position: relative;
+  box-shadow: 0 -1px 0 var(--ms-border) inset, 0 4px 14px rgba(0, 0, 0, 0.18);
+}
+
+.ribbon-body.open {
+  height: var(--ribbon-content-height);
+  opacity: 1;
+  flex-basis: var(--ribbon-content-height);
+}
+
+.ribbon-body.collapsed {
+  height: 0;
+  opacity: 0;
+  flex-basis: 0;
+  min-height: 0;
+}
+
+/* Overlay mode: ribbon floats above content without shifting layout */
+.ribbon-container.overlay {
+  height: var(--ribbon-tabbar-height);
+}
+
+.ribbon-container.overlay .ribbon-body.open {
+  position: fixed;
+  top: calc(48px + var(--ribbon-tabbar-height));
+  left: 0;
+  right: 0;
+  z-index: 2000;
+}
+
+/* In web (no OS titlebar), overlay sits directly below tabs */
+.platform-web .ribbon-container.overlay .ribbon-body.open {
+  top: var(--ribbon-tabbar-height);
+}
+
+/* Fullscreen hides ribbon entirely (Titlebar handles mini bar) */
+.app-fullscreen .ribbon-container {
+  display: none;
+}
+
+.ribbon-content {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  background: var(--ms-bg-white);
+}
+
+/* Removed top toolbar to achieve 88px total height (40 + 48) */
+
+.ribbon-toolbar-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 11px;
+  color: #000;
+  transition: all 200ms ease;
+  height: 28px;
+}
+
+.ribbon-toolbar-button:hover {
+  background: #E5E5E5;
+  border-color: #D0D0D0;
+}
+
+.ribbon-toolbar-button:active {
+  background: #D0D0D0;
+}
+
+.ribbon-toolbar-button svg {
+  width: 16px;
+  height: 16px;
+  color: currentColor;
+}
+
+.ribbon-groups {
+  display: flex;
+  gap: 16px;
+  padding: 4px 8px;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  overflow: hidden;
+  scrollbar-width: thin;
+}
+
+.ribbon-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-width: 120px;
+  padding: 0px;
+  border-right: 1px solid var(--ms-border);
+}
+
+.ribbon-group-content {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  height: 72px;
+  align-items: center;
+  justify-content: center;
+}
+
+.ribbon-group-label {
+  font-size: 9px;
+  color: #666;
+  text-align: center;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ribbon-body.tabs .ribbon-groups {
+  display: none;
+}
+
+.ribbon-empty {
+  padding: 16px;
+  text-align: center;
+  color: #999;
+  font-size: 12px;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+}
+
+.ribbon-item {
+  width: auto;
+  padding: 6px 10px;
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 4px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #323130;
+  transition: background-color 160ms ease, border-color 160ms ease;
+  min-height: 32px;
+  justify-content: center;
+}
+
+.ribbon-item:hover {
+  background: transparent;
+  border-color: transparent;
+}
+
+/* Icon-only (small) items: highlight just the icon with extra padding */
+.ribbon-item.small:hover .ribbon-item-icon {
+  background: var(--ms-hover);
+  border-radius: 6px;
+  /* padding: 4px; */
+}
+
+.ribbon-item.small:active .ribbon-item-icon {
+  background: var(--ms-active);
+}
+
+/* Items with icon + label: highlight the combined block */
+.ribbon-item:not(.small):hover {
+  background: var(--ms-hover);
+  border-radius: 6px;
+}
+
+.ribbon-item:not(.small):active {
+  background: var(--ms-active);
+}
+
+.ribbon-item.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ribbon-item.disabled:hover {
+  background: transparent;
+  border-color: transparent;
+}
+
+.ribbon-item.small {
+  padding: 4px 8px;
+  font-size: 11px;
+  min-height: 24px;
+}
+
+.ribbon-item.large {
+  padding: 8px;
+  font-size: 11px;
+  min-height: 48px;
+}
+
+.ribbon-item-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
+  color: #444;
+}
+
+.ribbon-item-label {
+  font-size: 12px;
+  color: #444;
+  text-align: center;
+  line-height: 1.2;
+  max-width: 100px;
+  word-wrap: break-word;
+}
+
+/* Legacy support for existing classes */
+.ribbon-row {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  padding: 16px;
+}
+
+.ribbon-group-toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-height: 60px;
+}
+
+.ribbon-btn {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: #000;
+  transition: all 200ms ease;
+  min-height: 60px;
+  justify-content: center;
+}
+
+.ribbon-btn:hover {
+  background: #F0F0F0;
+  border-color: #D0D0D0;
+}
+
+.ribbon-btn:active {
+  background: #E0E0E0;
+}
+
+.ribbon-btn.small {
+  padding: 4px;
+  font-size: 10px;
+  min-height: 40px;
+}
+
+.ribbon-btn.large {
+  padding: 12px;
+  font-size: 12px;
+  min-height: 80px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .ribbon-group-label {
+    display: none;
+  }
+
+  .ribbon-group {
+    padding-right: 8px;
+  }
+
+  .ribbon-item.small .ribbon-item-label {
+    display: none;
+  }
+}
+
+@media (max-width: 800px) {
+  .ribbon-groups {
+    padding: 8px;
+    gap: 8px;
+  }
+
+  .ribbon-item .ribbon-item-label {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .ribbon-container {
+    display: none;
+  }
+}

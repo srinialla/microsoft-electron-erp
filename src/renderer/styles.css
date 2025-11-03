@@ -1,0 +1,106 @@
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --app-padding: var(--space-6);
+}
+
+/* Office-style Layout: titlebar + ribbon + content */
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  background: #FFFFFF;
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+}
+
+.app-content {
+  flex: 1;
+  padding: var(--app-padding);
+  overflow: auto;
+  min-width: 0;
+  background: #ffffff;
+}
+
+/* Cards and grids */
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+}
+
+.stack {
+  display: grid;
+  gap: var(--space-3);
+}
+
+/* Generic card body padding */
+.card-body {
+  padding: var(--space-6);
+  display: grid;
+  gap: var(--space-3);
+}
+
+@media (max-width: 1200px) {
+  .grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .grid-4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Login page */
+.login-wrap {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  height: 100%;
+}
+
+.login-hero {
+  background: linear-gradient(135deg, #2563eb 0%, #9333ea 100%);
+  color: white;
+  display: grid;
+  place-items: center;
+  padding: var(--space-8);
+}
+
+.login-hero-inner {
+  max-width: 520px;
+  text-align: center;
+}
+
+.login-card {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  padding: var(--space-8);
+}
+
+@media (max-width: 900px) {
+  .login-wrap {
+    grid-template-columns: 1fr;
+  }
+
+  .login-hero {
+    display: none;
+  }
+}

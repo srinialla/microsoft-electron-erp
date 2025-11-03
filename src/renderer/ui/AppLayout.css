@@ -1,0 +1,70 @@
+/* Office-style App Layout */
+:root {
+  /* Microsoft Office Color Palette */
+  --ms-bg-primary: #F3F3F3;
+  --ms-bg-white: #FFFFFF;
+  --ms-border: #E1E1E1;
+  --ms-hover: #E5E5E5;
+  --ms-active: #D6D6D6;
+  --ms-accent: #0078D4;
+  --ms-accent-hover: #106EBE;
+  --ms-accent-pressed: #005A9E;
+  --ms-text-primary: #000000;
+  --ms-text-secondary: #605E5C;
+  --ms-text-disabled: #A19F9D;
+  --ms-success: #107C10;
+  --ms-error: #E81123;
+  --ms-warning: #FF8C00;
+
+  /* Shadows */
+  --ms-shadow-2: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --ms-shadow-4: 0 2px 6px rgba(0, 0, 0, 0.1);
+  --ms-shadow-8: 0 4px 12px rgba(0, 0, 0, 0.15);
+  --ms-shadow-16: 0 8px 24px rgba(0, 0, 0, 0.18);
+
+  /* Animations */
+  --ms-transition: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Ribbon layout */
+  --ribbon-tabbar-height: 32px;
+  --ribbon-content-height: 98px;
+}
+
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: var(--ms-bg-white);
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+  overflow: hidden;
+}
+
+.app-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--ms-bg-white);
+}
+
+/* Ensure proper layout with titlebar and ribbon */
+.app-shell>* {
+  flex-shrink: 0;
+}
+
+.app-content {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .app-shell {
+    background: #1E1E1E;
+  }
+
+  .app-content {
+    background: #1E1E1E;
+  }
+}
