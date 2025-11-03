@@ -10,6 +10,8 @@
 
 **Modern cross-platform ERP system with Microsoft Office-style navigation and ribbon interface**
 
+🌐 **Live Demo:** [https://crossplatformerp-officeui.netlify.app](https://crossplatformerp-officeui.netlify.app)
+
 [Features](#-features) • [Installation](#-installation) • [Documentation](#-documentation) • [Contributing](#-contributing)
 
 </div>
@@ -33,8 +35,6 @@
 - [Keyboard Shortcuts](#-keyboard-shortcuts)
 - [Deployment](#-deployment)
 - [Contributing](#-contributing)
-- [License](#-license)
-- [Support](#-support)
 
 ---
 
@@ -788,12 +788,3 @@ This project is licensed under the **MIT License**.
 See [LICENSE](LICENSE) file for details.
 
 ---
-
-## 📞 Support
-
-### Documentation
-
-- [User Guide](docs/USER_GUIDE.md)
-- [Developer Guide](docs/DEVELOPER_GUIDE.md)
-- [API Documentation](docs/API.md)
-- [Mobile Setup Guide](MOBILE_SETUP_GUIDE.md)
