@@ -171,7 +171,23 @@ export const Titlebar: React.FC = () => {
     window.addEventListener('online', handleOnline);
     window.addEventListener('offline', handleOffline);
 
-    // Robust connectivity polling (handles captive portals and flaky OS events)
+    // Check if we're in web mode (browser)
+    // In web mode, electron is undefined and we use the web API shim
+    const isWebMode =
+      typeof window !== 'undefined' &&
+      typeof (window as any).electron === 'undefined' &&
+      (window.api?.app?.platform === undefined || document.body.classList.contains('platform-web'));
+
+    // For web mode, just use navigator.onLine (no fetch needed - avoids CORS)
+    if (isWebMode) {
+      setIsOnline(navigator.onLine);
+      return () => {
+        window.removeEventListener('online', handleOnline);
+        window.removeEventListener('offline', handleOffline);
+      };
+    }
+
+    // For Electron/Mobile: Robust connectivity polling (handles captive portals and flaky OS events)
     let isMounted = true;
     const checkConnectivity = async () => {
       setIsSyncing(true);
