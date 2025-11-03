@@ -17,13 +17,32 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 export const LoginPage: React.FC = () => {
   const login = useAuthStore((s) => s.login);
+  const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
+  const isInitializing = useAuthStore((s) => s.isInitializing);
   const navigate = useNavigate();
   const location = useLocation();
   const from = (location.state as any)?.from?.pathname ?? '/';
   const [form, setForm] = React.useState({ username: '', password: '', remember: true });
   const [error, setError] = React.useState<string | null>(null);
   const [submitting, setSubmitting] = React.useState(false);
-  const onSubmit = (e: React.FormEvent) => {
+
+  // Redirect if already authenticated
+  React.useEffect(() => {
+    if (!isInitializing && isAuthenticated) {
+      navigate(from, { replace: true });
+    }
+  }, [isAuthenticated, isInitializing, navigate, from]);
+
+  // Show loading while initializing
+  if (isInitializing) {
+    return (
+      <div className="login-wrap" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <Spinner size="large" />
+      </div>
+    );
+  }
+
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const res = loginSchema.safeParse(form);
     if (!res.success) {
@@ -31,9 +50,15 @@ export const LoginPage: React.FC = () => {
       return;
     }
     setSubmitting(true);
-    Promise.resolve(login(res.data.username, res.data.remember))
-      .then(() => navigate(from, { replace: true }))
-      .finally(() => setSubmitting(false));
+    setError(null);
+    try {
+      await login(res.data.username, res.data.password);
+      navigate(from, { replace: true });
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Login failed. Please check your credentials.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (

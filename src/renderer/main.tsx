@@ -11,6 +11,7 @@ import { ErrorBoundary } from './components/ErrorBoundary';
 import { ToastProvider } from './components/ToastProvider';
 import { UpdateDialog } from './components/UpdateDialog';
 import { initDatabase } from '../services/database/initDatabase';
+import { useAuthStore } from './stores/auth';
 
 // Platform detection and API setup
 import type { PreloadApi, AuthToken, Notification } from '@shared/ipc';
@@ -96,7 +97,22 @@ function AppRoot() {
   const theme = useSettingsStore((s) => s.theme);
   const currency = useCurrencyStore((s) => s.currency);
   const loadCurrency = useCurrencyStore((s) => s.loadCurrency);
+  const initAuth = useAuthStore((s) => s.init);
   const [dbReady, setDbReady] = React.useState(false);
+  const [authReady, setAuthReady] = React.useState(false);
+
+  // Initialize authentication session restoration
+  React.useEffect(() => {
+    initAuth()
+      .then(() => {
+        setAuthReady(true);
+        console.log('Authentication initialized');
+      })
+      .catch((error: unknown) => {
+        console.error('Failed to initialize auth:', error);
+        setAuthReady(true);
+      });
+  }, [initAuth]);
 
   React.useEffect(() => {
     initDatabase()
@@ -120,13 +136,13 @@ function AppRoot() {
     }
   }, [currency]);
 
-  if (!dbReady) {
+  if (!dbReady || !authReady) {
     return (
       <FluentProvider
         theme={theme === 'dark' ? webDarkTheme : webLightTheme}
         style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
       >
-        <div>Initializing database...</div>
+        <div>Initializing...</div>
       </FluentProvider>
     );
   }
