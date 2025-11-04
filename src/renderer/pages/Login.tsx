@@ -36,7 +36,10 @@ export const LoginPage: React.FC = () => {
   // Show loading while initializing
   if (isInitializing) {
     return (
-      <div className="login-wrap" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div
+        className="login-wrap"
+        style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+      >
         <Spinner size="large" />
       </div>
     );
@@ -111,6 +114,12 @@ export const LoginPage: React.FC = () => {
                 <Button appearance="primary" type="submit" size="large" disabled={submitting}>
                   {submitting ? <Spinner size="tiny" /> : 'Sign in'}
                 </Button>
+                <MessageBar intent="info">
+                  <Text size={200}>
+                    Default credentials - Username: <strong>admin</strong>, Password:{' '}
+                    <strong>1234</strong>
+                  </Text>
+                </MessageBar>
               </div>
             </form>
           </CardPreview>
